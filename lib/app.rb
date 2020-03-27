@@ -1,8 +1,10 @@
 class App
-    def the_logo 
+
+        def the_logo 
         puts  "    
                     🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         
+
                                        ________
                                 o     |   __   |
                                 \_ O   |  |__|  |
@@ -12,7 +14,7 @@ class App
                                            ||
                             _______________||________________
                                                                          "
-          sleep(3)                                                               
+          sleep(2)                                                               
 
 
         puts"         
@@ -30,121 +32,227 @@ class App
         puts "This is your NBA application"
         
     end
-    
-    def welcome
-       puts " Hello, welcome to NBA Sessions,
-             type 1 to search for the NBA's top players, 
-             type 2 to search for the NBA's top coaches, 
-             type 3 to see a coaches specialty,
-             type 4 to schedule a workout with a coach: " 
-      end
-    
-      def get_input_from_user
-        # use gets to capture the user's input. This method should return that input, downcased.
-        jquery = gets.strip
-        jquery
-      end
-      
-      def player_prompt
-        puts "Here's the NBA's Top players!:"
-      end
-      
-      def coach_prompt
-        puts "Here's the NBA's top coaches!:"
-      end
-
-      def specialty_prompt
-        puts "Type in a specialty(Defense, Offense, Training) 
-        to see it's coach!:"
-      end
-
-      def workout_pompt
-        puts "Select a day of the week to workout!:"
-        puts "Monday - Friday our coaches are available!"
-      end
-
-      def goodbye
-        puts "Goodbye!"
-      end
 
 
-
-      def run 
+    def run 
         the_logo
-        welcome
+        menu
+       
+    end 
+
+    def menu
+        puts " 
+        type 1 to see the NBA's top players 
+        type 2 to see the NBA's top coaches 
+        type 3 to see Coaches Specialties
+        type 4 to schedule a workout session with a coach and a player
+        type 5 to cancel a workout session
+        type 6 to see all sessions" 
+        
+        menu_options
+    end
+
+    def get_input_from_user #allows us to put stuff in the terminal
+        gets.strip
+    end
+    
+    def menu_options
         choice = get_input_from_user
         if choice.to_i == 1
-            player_method
+            all_players_names
+            return_main_menu 
         elsif choice.to_i == 2
-            coaches_method
+            all_coaches_names            
+            return_main_menu 
         elsif choice.to_i ==3
-            specialty
+            all_coaches_specialties 
+            return_main_menu 
         elsif choice.to_i ==4
-            work_out    
+            schedule_workout   
+            return_main_menu 
+        elsif choice.to_i == 5
+            cancel_session
+            return_main_menu
+        elsif choice.to_i == 6
+            all_sessions 
+            return_main_menu
+           
         end
-         goodbye
-         get_player_by_name 
-      end 
 
-     def player_method
-        player_prompt
-        Player.all.each { |player|
-            puts player.name
-
-        }
     end
-
-    def coaches_method 
-        coach_prompt
-        Coach.all.each { |coach|
-            puts coach.name
-        }
+    
+    def all_players_names 
+        puts "These are the NBA's top players"
+        counter = 1
+        Player.all.each do |player| 
+            puts "#{counter}. #{player.name}"        
+            counter +=1
+         end
     end
-
-    def specialty
-        specialty_prompt 
-        choice = get_input_from_user
-        if choice.to_s == "Defense"
-            defense_prompt
-        elsif choice.to_s == "Offense"
-            offense_prompt
-        elsif choice.to_s == "Training"
-            training_prompt
-        end 
-        Coach.all.map do |coach|
-         coach.specialty 
-             
-            
+      
+    def all_coaches_names
+        puts "These are the NBA's top coaches"
+        counter = 1
+        Coach.all.each do |coach| 
+            puts "#{counter}. #{coach.name}"
+            counter +=1
         end
     end
 
-    def defense_prompt
-        puts " The defensive coach is Doc Rivers!"
-    end
-
-    def offense_prompt
-        puts " The offensive coach is Phil Jackson!"
-    end
-
-    def training_prompt
-        puts " The training coach is Greg Pop!"
-    end
-
-
-    def work_out
-        workout_pompt
-    end
-
-    def get_coach_by_name 
-        Coach.all.map{|coaches| 
-        binding.pry
-        coaches.name}
-    end
-    def get_player_by_name 
-        Player.all.map{|player_instance| player_instance.name}
+    def all_coaches_specialties 
+        counter = 1 #// Doc Rivers -  Defense
+        Coach.all.each do |coach| 
+            puts "#{counter}. #{coach.name} - #{coach.specialty}" 
+            counter += 1 
+        end
     end
     
-end 
-   
+    def coach_choice # Returns one coach_id
+        puts "--------------------------------"
+        puts "Coaches and Specialties"
+        puts "--------------------------------"
+        all_coaches_specialties
+        puts "--------------------------------"
+        puts "Type the number of the desired coach:"
+        choice = get_input_from_user.to_i
+        # 1. Doc Rivers - Defense
+        # 2. Phil Jackson - Offense
+        if choice < 1 || choice > Coach.all.length
+            coach_choice
+            puts "chose a valid coach number"
+        else
+        # 3. Greg Pop - Training
+        if choice == 1
+            #return doc rivers
+            coach_id = Coach.all.find_by(name: "Doc Rivers").id
+        elsif choice == 2
+            #return phil jackson
+            coach_id =Coach.all.find_by(name: "Phil Jackson").id
+        elsif choice == 3
+            #return greg Pop
+            coach_id = Coach.all.find_by(name: "Greg Pop").id
+            end
+        end
+        coach_id
+    end
+
+    def player_choice
+        puts "--------------------------------"
+        puts "Here is the list of all the players "
+        puts "--------------------------------"
+        all_players_names
+        puts "--------------------------------"
+        puts "Type the number of the desired player:"
+        choice = get_input_from_user.to_i
+        if choice < 1 || choice > Player.all.length
+            player_choice
+            puts "chose a valid player number"
+        else
+            if choice == 1
+            #return Kobe Bryant's ID
+                player_id = Player.all.find_by(name: "Kobe Bryant").id
+            elsif choice == 2
+            #return Micheal Jordan's ID
+                player_id = Player.all.find_by(name: "Micheal Jordan").id
+            elsif choice == 3
+            #return Lebron James's ID
+                player_id = Player.all.find_by(name: "Lebron James").id
+            elsif choice == 4
+            #return John Wall ID
+                player_id = Player.all.find_by(name: "John Wall").id
+            end
+        player_id
+        end
+    end
+
+    def date_for_workout
+        puts "--------------------------------"
+        puts "Monday - Friday"
+        puts "--------------------------------"
+        puts "Please type the date in the following format (MM/DD/YYYY)"
+        date = get_input_from_user
+    end
+
+    def time_for_workout 
+        puts "--------------------------------"
+        puts "The available times are from 12pm to 7pm"
+        puts "--------------------------------"
+        puts "Please type the workout time in the following format 00:00"
+        workout_time = get_input_from_user
+    end
+
+    def create_new_session(player_id, coach_id, session_date, session_time)
+        new_session = Session.create(player_id: player_id, coach_id: coach_id, session_date: session_date, session_time: session_time)
+        puts "Your Session has been created"
+    end
     
+    def schedule_workout 
+        cc = coach_choice
+        puts "################################"
+        pc = player_choice
+        puts "################################"
+        dw = date_for_workout
+        puts "################################"
+        tw = time_for_workout 
+        puts "################################"
+
+        create_new_session(cc, pc, dw, tw)
+
+        # binding.pry
+        # X- ask for what coach you want and get coach_id
+        # X- ask for what player you want and get player_id
+        # X- ask for date input
+        # X- ask for time input 
+        # X- to schedule we need (coach_id, player_id, session_date(string), session_time (string))
+        
+    end
+    def all_sessions
+        all_sessions = Session.all()
+        puts "These are all the sessions"
+        counter = 1
+        
+        Session.all.each do |session| 
+            coach = Coach.all.find_by(id: session.coach_id)  #car = Car.find_by(id:carid) #carid is was defined earlier
+            player = Player.all.find_by(id: session.player_id)
+            puts "ID: #{session.id}"        
+            puts "COACH: #{coach.name}"
+            puts "PLAYER: #{player.name}"
+            puts "DATE: #{session.session_date}"
+            puts "TIME: #{session.session_time}"
+            counter +=1
+            puts "------------------------"
+         end
+         
+    end
+    
+    
+    def delete_session(id)
+        Session.all.find(id).destroy
+        puts "your workout session has been deleted"
+    end
+        
+    def cancel_session
+        all_sessions
+        puts "##############################################"
+        puts "Type the ID of the session you want to delete:"
+        input = get_input_from_user
+        id = input.to_i
+
+        delete_session(id)
+        #erase session from DB
+       
+    end
    
+    def return_main_menu 
+    puts "Press 'm' for main menu. Press any other letter to exit this program."
+    choice = get_input_from_user  #check line 17
+        if choice.to_s == "m"
+            menu
+        end
+    end
+
+
+
+    
+
+end

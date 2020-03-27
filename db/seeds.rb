@@ -1,3 +1,7 @@
+require_relative '../config/environment.rb'
+require 'rest-client'
+require 'json'
+
 # Player.destroy_all
 # # Coach.destroy_all
 # # Session.destroy_all
