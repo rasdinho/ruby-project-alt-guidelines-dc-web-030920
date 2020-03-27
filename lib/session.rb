@@ -4,3 +4,4 @@ belongs_to :coach
 
 
 end
+
