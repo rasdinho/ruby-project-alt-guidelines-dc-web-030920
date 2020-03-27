@@ -2,12 +2,6 @@ require_relative '../config/environment'
 
 
 
-
-
-
-
-
-
 app = App.new
 
 

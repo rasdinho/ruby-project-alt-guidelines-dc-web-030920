@@ -1,18 +1,34 @@
 class App
     def the_logo 
-        puts"       
+        puts  "    
+                    🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         
-     #     # ######     #    
-     ##    # #     #   # #   
-     # #   # #     #  #   #  
-     #  #  # ######  #     # 
-     #   # # #     # ####### 
-     #    ## #     # #     # 
-     #     # ######  #     #
-        
-        "
-        sleep(1)
+                                       ________
+                                o     |   __   |
+                                \_ O   |  |__|  |
+                            ____/  |  |___WW___|
+                            __/   /        ||
+                                           ||
+                                           ||
+                            _______________||________________
+                                                                         "
+          sleep(3)                                                               
+
+
+        puts"         
+                                #     # ######     #                 
+                                ##    # #     #   # #   
+                                # #   # #     #  #   #  
+                                #  #  # ######  #     #           
+                                #   # # #     # ####### 
+                                #    ## #     # #     # 
+                                #     # ######  #     #
+                                    
+                            "
+        puts   "🔥🔥🔥🔥🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀⛹️⛹️⛹️⛹️⛹️⛹️⛹️⛹️⛹️⛹️⛹️⛹️🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🔥🔥🔥🔥"
+        sleep(2)
         puts "This is your NBA application"
+        
     end
     
     def welcome
@@ -47,6 +63,10 @@ class App
         puts "Monday - Friday our coaches are available!"
       end
 
+      def goodbye
+        puts "Goodbye!"
+      end
+
 
 
       def run 
@@ -62,7 +82,8 @@ class App
         elsif choice.to_i ==4
             work_out    
         end
-        
+         goodbye
+         get_player_by_name 
       end 
 
      def player_method
@@ -112,10 +133,17 @@ class App
 
     def work_out
         workout_pompt
-
     end
 
-
+    def get_coach_by_name 
+        Coach.all.map{|coaches| 
+        binding.pry
+        coaches.name}
+    end
+    def get_player_by_name 
+        Player.all.map{|player_instance| player_instance.name}
+    end
+    
 end 
    
     
