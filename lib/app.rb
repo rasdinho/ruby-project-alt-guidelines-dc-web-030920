@@ -14,7 +14,7 @@ class App
                                            ||
                             _______________||________________
                                                                          "
-          sleep(2)                                                               
+          sleep(3)                                                               
 
 
         puts"         
@@ -37,17 +37,19 @@ class App
     def run 
         the_logo
         menu
-       
+       goodbye
     end 
 
     def menu
         puts " 
-        type 1 to see the NBA's top players 
-        type 2 to see the NBA's top coaches 
-        type 3 to see Coaches Specialties
-        type 4 to schedule a workout session with a coach and a player
-        type 5 to cancel a workout session
-        type 6 to see all sessions" 
+        Type 1 to see the NBA's top players 
+        Type 2 to see the NBA's top coaches 
+        Type 3 to see Coaches Specialties
+        Type 4 to schedule a workout session with a coach and a player
+        Type 5 to cancel a workout session
+        Type 6 to see all sessions
+        Type 7 to exit this application"
+         
         
         menu_options
     end
@@ -76,7 +78,8 @@ class App
         elsif choice.to_i == 6
             all_sessions 
             return_main_menu
-           
+        elsif choice.to_i == 7
+            goodbye 
         end
 
     end
@@ -108,11 +111,11 @@ class App
     end
     
     def coach_choice # Returns one coach_id
-        puts "--------------------------------"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         puts "Coaches and Specialties"
-        puts "--------------------------------"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         all_coaches_specialties
-        puts "--------------------------------"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         puts "Type the number of the desired coach:"
         choice = get_input_from_user.to_i
         # 1. Doc Rivers - Defense
@@ -137,11 +140,11 @@ class App
     end
 
     def player_choice
-        puts "--------------------------------"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         puts "Here is the list of all the players "
-        puts "--------------------------------"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         all_players_names
-        puts "--------------------------------"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         puts "Type the number of the desired player:"
         choice = get_input_from_user.to_i
         if choice < 1 || choice > Player.all.length
@@ -166,17 +169,17 @@ class App
     end
 
     def date_for_workout
-        puts "--------------------------------"
-        puts "Monday - Friday"
-        puts "--------------------------------"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
+        puts         "Monday - Friday"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         puts "Please type the date in the following format (MM/DD/YYYY)"
         date = get_input_from_user
     end
 
     def time_for_workout 
-        puts "--------------------------------"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         puts "The available times are from 12pm to 7pm"
-        puts "--------------------------------"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         puts "Please type the workout time in the following format 00:00"
         workout_time = get_input_from_user
     end
@@ -188,13 +191,13 @@ class App
     
     def schedule_workout 
         cc = coach_choice
-        puts "################################"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         pc = player_choice
-        puts "################################"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         dw = date_for_workout
-        puts "################################"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         tw = time_for_workout 
-        puts "################################"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
 
         create_new_session(cc, pc, dw, tw)
 
@@ -216,11 +219,11 @@ class App
             player = Player.all.find_by(id: session.player_id)
             puts "ID: #{session.id}"        
             puts "COACH: #{coach.name}"
-            puts "PLAYER: #{player.name}"
+            # puts "PLAYER: #{player.name}"
             puts "DATE: #{session.session_date}"
             puts "TIME: #{session.session_time}"
             counter +=1
-            puts "------------------------"
+            puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
          end
          
     end
@@ -233,7 +236,7 @@ class App
         
     def cancel_session
         all_sessions
-        puts "##############################################"
+        puts "🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀🏀"
         puts "Type the ID of the session you want to delete:"
         input = get_input_from_user
         id = input.to_i
@@ -245,14 +248,34 @@ class App
    
     def return_main_menu 
     puts "Press 'm' for main menu. Press any other letter to exit this program."
-    choice = get_input_from_user  #check line 17
+    choice = get_input_from_user  #check line 57
         if choice.to_s == "m"
             menu
         end
     end
 
 
-
+    def goodbye
+        puts "Thank you for visiting the NBA application
+        
+                                
+                                    -|
+                                    -' |
+                                  -'   | __().
+                             ==wkm=====|'/ /   `.O__
+                                                 | `,
+                                                _-^.
+                                                `.  `---,
+                                                  :
+                     
+                     
+                     
+                            ____________________________________
+                           🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+                             
+                     
+        "
+    end
     
 
 end
